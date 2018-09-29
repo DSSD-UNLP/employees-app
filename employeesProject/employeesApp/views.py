@@ -33,7 +33,6 @@ class EmployeeList(APIView):
 class EmployeeDetail(APIView):
     def get(self, request, pk):
         employee = get_object_or_404(Employee, pk=pk)
-        code.interact(local=dict(globals(), **locals()))
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data)
 
@@ -57,9 +56,12 @@ class EmployeeLogin(APIView):
         if (request.POST.get('email')) != None and (request.POST.get('password')) != None:
             email = request.POST.get('email')
             password = request.POST.get('password')
-            employee = get_object_or_404(Employee, email=email)
-            #serializer = EmployeeSerializer(employee, data=request.data)
-            #code.interact(local=dict(globals(), **locals()))
+            try:
+                employee = Employee.objects.get(email=email)
+            except:
+                response_message = {"status":"error", "message":"Email not exists"}
+                response_status = status.HTTP_404_NOT_FOUND
+                return Response(response_message, status=response_status)
             if (employee.password == password):
                 response_message = {"status":"ok", "message":"Valid user"}
                 response_status = status.HTTP_200_OK
