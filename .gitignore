@@ -102,3 +102,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Secret Settings
+./employeesProject/settings_secret.yml
