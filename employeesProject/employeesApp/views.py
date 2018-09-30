@@ -1,14 +1,13 @@
-from django.shortcuts import render
 from employeesProject.employeesApp.models import Employee, Type
-from employeesProject.employeesApp.serializer import EmployeeSerializer, EmployeeLoginSerializer, TypeSerializer
+from employeesProject.employeesApp.serializer import EmployeeSerializer, TypeSerializer
 from django.http import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_list_or_404, get_object_or_404
 from rest_framework.pagination import PageNumberPagination
-import code
 from employeesProject.employeesApp.filter import EmployeeFilter,TypeFilter
+import code
 
 class EmployeeList(APIView):
 	
@@ -22,7 +21,7 @@ class EmployeeList(APIView):
         return paginator.get_paginated_response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = EmployeeLoginSerializer(data=request.data)
+        serializer = EmployeeSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             response_message={"status":"ok","message":"Created successfully","id":serializer.data['id']}
@@ -44,7 +43,7 @@ class EmployeeDetail(APIView):
 
     def put(self,request,pk):
         employee = get_object_or_404(Employee,pk=pk)
-        serializer = EmployeeLoginSerializer(employee, data=request.data)
+        serializer = EmployeeSerializer(employee, data=request.data)
         if serializer.is_valid():
             serializer.save()
             response_message = {"status":"ok", "message":"Updated successfully", "id":serializer.data['id']}
