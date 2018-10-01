@@ -133,10 +133,6 @@ STATIC_URL = '/static/'
 #Rest Framework Pagination Service xD
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [],
-    'DEFAULT_AUTHENTICATION_CLASSES': [],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'employeesProject.employeesApp.paginator_wrapper.StandardResultsSetPagination',
     'PAGE_SIZE': 2
 }
