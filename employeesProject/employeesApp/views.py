@@ -14,7 +14,8 @@ class EmployeeList(APIView):
 	
     def get(self, request):
         employees  = EmployeeFilter(Employee.objects.all(), request).employees()
-        page       = StandardResultsSetPagination().paginate_queryset(employees, request)
+        paginator       = StandardResultsSetPagination()
+        page = paginator.paginate_queryset(employees, request)
         serializer = EmployeeSerializer(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
