@@ -91,7 +91,8 @@ class TypeList(APIView):
 
     def get(self, request):
         types = TypeFilter(Type.objects.all(),request).types()
-        page = StandardResultsSetPagination().paginate_queryset(types, request)
+        paginator = StandardResultsSetPagination()
+        page = paginator.paginate_queryset(types, request)
         serializer = TypeSerializer(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
