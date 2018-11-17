@@ -53,9 +53,8 @@ class EmployeeDetail(APIView):
 
 class EmployeeLogin(APIView):
     def post(self,request):
-        if (request.POST.get('email')) != None and (request.POST.get('password')) != None:
+        if (request.POST.get('email')) != None:
             email = request.POST.get('email')
-            password = request.POST.get('password')
 
             try:
                 employee = Employee.objects.get(email = email)
@@ -68,19 +67,13 @@ class EmployeeLogin(APIView):
 
                 return Response(response_message, status=response_status)
 
-            if check_password(password, employee.password):
-                response_message = EmployeeSerializer(employee).data
-                response_status = status.HTTP_200_OK
-            else:
-                response_message = {
-                    "status":"error", 
-                    "message":"Invalid password"
-                }
-                response_status = status.HTTP_401_UNAUTHORIZED
+            response_message = EmployeeSerializer(employee).data
+            response_message['status']='ok' 
+            response_status = status.HTTP_200_OK
         else:
             response_message = {
                 "status":"error", 
-                "email":"This field is required.", "password":"This field is required."
+                "email":"This field is required."
             }
             response_status = status.HTTP_400_BAD_REQUEST
 
