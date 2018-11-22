@@ -52,10 +52,8 @@ class EmployeeDetail(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class EmployeeLogin(APIView):
-    def post(self,request):
-        if (request.POST.get('email')) != None:
-            email = request.POST.get('email')
-
+    def get(self,request,email):
+        if (email != None):
             try:
                 employee = Employee.objects.get(email = email)
             except Employee.DoesNotExist:
