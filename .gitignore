@@ -107,5 +107,5 @@ venv.bak/
 employeesProject/settings_secret.yml
 
 #DS_Store ignore
-*/.DS_Store
+**/.DS_Store
 

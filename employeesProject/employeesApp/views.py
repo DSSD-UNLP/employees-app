@@ -61,7 +61,7 @@ class EmployeeLogin(APIView):
                     "status":"error", 
                     "message":"Email not exists"
                 }
-                response_status = status.HTTP_404_NOT_FOUND
+                response_status = status.HTTP_200_OK
 
                 return Response(response_message, status=response_status)
 
